@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "provider_settings",
+  "info": {
+    "singularName": "provider-setting",
+    "pluralName": "provider-settings",
+    "displayName": "Provider Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "sendgrid",
+        "ses",
+        "postmark",
+        "mailgun",
+        "smtp"
+      ]
+    },
+    "credentials": {
+      "type": "json",
+      "required": true
+    },
+    "lastTestedAt": {
+      "type": "datetime"
+    },
+    "healthStatus": {
+      "type": "enumeration",
+      "default": "unknown",
+      "enum": [
+        "unknown",
+        "healthy"
+      ]
+    }
+  }
+}

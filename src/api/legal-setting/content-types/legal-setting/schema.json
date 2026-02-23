@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "legal_settings",
+  "info": {
+    "singularName": "legal-setting",
+    "pluralName": "legal-settings",
+    "displayName": "Legal Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "termsUrl": {
+      "type": "string"
+    },
+    "privacyUrl": {
+      "type": "string"
+    },
+    "footerDisclaimer": {
+      "type": "richtext"
+    },
+    "contractTermsSnippet": {
+      "type": "richtext"
+    },
+    "complianceDisclaimer": {
+      "type": "richtext"
+    }
+  }
+}

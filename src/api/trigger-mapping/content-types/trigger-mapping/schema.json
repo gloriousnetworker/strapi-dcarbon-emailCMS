@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trigger_mappings",
+  "info": {
+    "singularName": "trigger-mapping",
+    "pluralName": "trigger-mappings",
+    "displayName": "Trigger Mapping"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "eventKey": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "USER_WELCOME",
+        "FACILITY_INVITE_SENT",
+        "FACILITY_SUBMITTED",
+        "AUTHORIZATION_STARTED",
+        "AUTHORIZATION_FAILED",
+        "AUTHORIZATION_SUCCESS",
+        "DOCUMENT_REJECTED",
+        "COMPLIANCE_EXPORT_READY",
+        "REC_INGESTION_FAILED",
+        "EARNINGS_STATEMENT_READY",
+        "PAYMENT_PROCESSED"
+      ]
+    },
+    "template": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::template.template"
+    },
+    "fallbackTemplate": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::template.template"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "audience": {
+      "type": "enumeration",
+      "enum": [
+        "Customer",
+        "Partner",
+        "SalesAgent"
+      ]
+    }
+  }
+}

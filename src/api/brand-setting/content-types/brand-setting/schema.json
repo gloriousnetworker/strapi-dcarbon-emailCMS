@@ -1,0 +1,56 @@
+{
+  "kind": "singleType",
+  "collectionName": "brand_settings",
+  "info": {
+    "singularName": "brand-setting",
+    "pluralName": "brand-settings",
+    "displayName": "Brand Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "brandName": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "supportEmail": {
+      "type": "email",
+      "required": true
+    },
+    "companyAddress": {
+      "type": "text",
+      "required": true
+    },
+    "defaultSenderName": {
+      "type": "string"
+    },
+    "defaultSenderEmail": {
+      "type": "email"
+    },
+    "defaultReplyTo": {
+      "type": "email"
+    },
+    "socialLinks": {
+      "type": "json"
+    }
+  }
+}

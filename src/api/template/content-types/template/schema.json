@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "templates",
+  "info": {
+    "singularName": "template",
+    "pluralName": "templates",
+    "displayName": "Template"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "templateKey": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "regex": "^[A-Z_]+$"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Onboarding",
+        "Authorization",
+        "Facility",
+        "Compliance",
+        "Finance",
+        "System"
+      ]
+    },
+    "subject": {
+      "type": "text",
+      "required": true
+    },
+    "preheader": {
+      "type": "string"
+    },
+    "fromName": {
+      "type": "string"
+    },
+    "fromEmail": {
+      "type": "email"
+    },
+    "replyTo": {
+      "type": "email"
+    },
+    "bodyHtml": {
+      "type": "blocks",
+      "required": true
+    },
+    "bodyText": {
+      "type": "text"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}
