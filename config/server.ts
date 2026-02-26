@@ -10,3 +10,5 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Server =>
 });
 
 export default config;
+
+// working server.ts
