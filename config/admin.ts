@@ -1,15 +1,7 @@
 // config/admin.ts
 import type { Core } from '@strapi/strapi';
 
-interface TemplateDocument {
-  id: number;
-  documentId: string;
-  templateKey?: string;
-  name?: string;
-  [key: string]: any;
-}
-
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => ({
+export default ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -21,9 +13,6 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => 
       salt: env('TRANSFER_TOKEN_SALT'),
     },
   },
-  secrets: {
-    encryptionKey: env('ENCRYPTION_KEY'),
-  },
   flags: {
     nps: env.bool('FLAG_NPS', true),
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
@@ -32,20 +21,18 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => 
   preview: {
     enabled: true,
     config: {
-      allowedOrigins: [env('CLIENT_URL', 'http://localhost:3000')],
-      async handler(uid: string, { documentId, locale, status }: any) {
+      handler: async (uid: string, { documentId, locale, status }: any) => {
         try {
-          // Cast to the expected type
-          const document = await (strapi.documents as any)(uid).findOne({ 
-            documentId,
-          }) as TemplateDocument | null;
+          console.log('Preview handler called:', { uid, documentId, locale, status });
           
-          console.log('Preview document:', JSON.stringify(document, null, 2));
+          const document = await (strapi as any).documents(uid).findOne({ 
+            documentId,
+          });
           
           const templateKey = document?.templateKey || '';
           
           const urlSearchParams = new URLSearchParams({
-            secret: env('PREVIEW_SECRET', 'development-preview-secret'),
+            secret: env('PREVIEW_SECRET', ''),
             documentId: documentId,
             uid: uid,
             status: status || 'draft',
@@ -55,12 +42,10 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => 
           
           return `${env('CLIENT_URL', 'http://localhost:3000')}/api/preview?${urlSearchParams}`;
         } catch (error) {
-          console.error('Preview handler error:', error);
+          console.error('Preview error:', error);
           return `${env('CLIENT_URL', 'http://localhost:3000')}/preview?status=${status || 'draft'}`;
         }
       },
     },
   },
 });
-
-export default config;
