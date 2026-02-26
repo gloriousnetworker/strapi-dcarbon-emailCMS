@@ -1,6 +1,13 @@
 // config/admin.ts
 import type { Core } from '@strapi/strapi';
 
+interface StrapiResponse {
+  data?: Array<{
+    templateKey?: string;
+    [key: string]: any;
+  }>;
+}
+
 export default ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
@@ -17,31 +24,24 @@ export default ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => 
     nps: env.bool('FLAG_NPS', true),
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
   },
-  
   preview: {
     enabled: true,
     config: {
       handler: async (uid: string, { documentId, locale, status }: any) => {
         try {
-          // First, try to get the template via the REST API instead of documents API
-          // This is more reliable since we know the REST API returns the templateKey
-          const baseUrl = env('STRAPI_URL', 'http://localhost:1337');
-          const apiToken = env('API_TOKEN_SALT'); // Use your API token if needed
-          
-          // Fetch the template using the REST API
+          const baseUrl = env('STRAPI_URL', 'https://strapi-dcarbon-emailcms.onrender.com');
           const response = await fetch(
             `${baseUrl}/api/templates?filters[documentId][$eq]=${documentId}`,
             {
               headers: {
                 'Content-Type': 'application/json',
-                ...(apiToken && { 'Authorization': `Bearer ${apiToken}` })
               }
             }
           );
           
-          const data = await response.json() as { data?: Array<{ templateKey?: string }> };
+          const data = await response.json() as StrapiResponse;
           const template = data.data?.[0];
-          const templateKey = template?.templateKey || 'USER_WELCOME'; // Fallback
+          const templateKey = template?.templateKey || 'USER_WELCOME';
           
           const urlSearchParams = new URLSearchParams({
             secret: env('PREVIEW_SECRET', ''),
@@ -52,11 +52,10 @@ export default ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => 
             ...(locale && { locale })
           });
           
-          return `${env('CLIENT_URL', 'http://localhost:3000')}/api/preview?${urlSearchParams}`;
+          return `${env('CLIENT_URL', 'https://d-carbon-emailcms.vercel.app')}/api/preview?${urlSearchParams}`;
         } catch (error) {
           console.error('Preview error:', error);
-          // Ultimate fallback - use a known template key
-          return `${env('CLIENT_URL', 'http://localhost:3000')}/preview?templateKey=USER_WELCOME&status=${status || 'draft'}`;
+          return `${env('CLIENT_URL', 'https://d-carbon-emailcms.vercel.app')}/preview?templateKey=USER_WELCOME&status=${status || 'draft'}`;
         }
       },
     },
