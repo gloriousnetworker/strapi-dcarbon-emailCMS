@@ -608,16 +608,13 @@ export interface ApiTriggerMappingTriggerMapping
     eventKey: Schema.Attribute.Enumeration<
       [
         'USER_WELCOME',
-        'FACILITY_INVITE_SENT',
-        'FACILITY_SUBMITTED',
-        'AUTHORIZATION_STARTED',
-        'AUTHORIZATION_FAILED',
-        'AUTHORIZATION_SUCCESS',
+        'OTP_VERIFICATION',
+        'FACILITY_VERIFIED',
         'DOCUMENT_REJECTED',
-        'COMPLIANCE_EXPORT_READY',
-        'REC_INGESTION_FAILED',
-        'EARNINGS_STATEMENT_READY',
-        'PAYMENT_PROCESSED',
+        'INVITE_RESIDENTIAL',
+        'INVITE_COMMERCIAL',
+        'INVITE_OPERATOR',
+        'INVITE_PARTNER',
       ]
     > &
       Schema.Attribute.Required;
