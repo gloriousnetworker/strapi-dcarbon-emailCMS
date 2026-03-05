@@ -17,12 +17,20 @@
       "enum": [
         "USER_WELCOME",
         "OTP_VERIFICATION",
+        "PASSWORD_RESET_OTP",
         "FACILITY_VERIFIED",
         "DOCUMENT_REJECTED",
         "INVITE_RESIDENTIAL",
         "INVITE_COMMERCIAL",
         "INVITE_OPERATOR",
-        "INVITE_PARTNER"
+        "INVITE_PARTNER",
+        "AGREEMENT_RESIGN",
+        "ADMIN_REPLY",
+        "ADMIN_REMINDER",
+        "UTILITY_PROVIDER_REQUEST",
+        "FINANCIAL_TYPE_REQUEST",
+        "UTILITY_AUTH_SUCCESS",
+        "UTILITY_AUTH_EXPIRED"
       ]
     },
     "template": {
